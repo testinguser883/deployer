@@ -31,12 +31,12 @@ echo "ElasticBeanTalk application created"
 
 # Get the name of the latest Docker solution stack
 dockerstack="$(aws elasticbeanstalk list-available-solution-stacks | \
-    jq -r '.SolutionStacks[]' | grep -P '.+Amazon Linux.+Docker.+' | head -1)"
+    jq -r '.SolutionStacks[]' | grep -P '.+Amazon Linux.+Docker.+' | head -2 | tail -1)"
 
 # Create the EB API environment
 aws elasticbeanstalk create-environment \
     --application-name $identifier \
-    --environment-name deployer-api \
+    --environment-name deployer-api-$identifier \
     --description "deployer API environment" \
     --tags "Key=Owner,Value=$(whoami)" \
     --solution-stack-name "$dockerstack" \
@@ -45,11 +45,11 @@ apieid=$(jq -r '.EnvironmentId' tmp/$identifier/ebcreateapienv.json)
 echo "API environment $apieid is being created"
 
 # Upload the application version
-aws s3 mb s3://$identifier
+aws s3 mb s3://$identifier --region us-east-1
 aws s3 cp app-version-deployer.json s3://$identifier/
 aws elasticbeanstalk create-application-version \
     --application-name "$identifier" \
-    --version-label deployer-api \
+    --version-label deployer-api-$identifier \
     --source-bundle "S3Bucket=$identifier,S3Key=app-version-deployer.json" > tmp/$identifier/appversion.json
 
 # Wait for the environment to be ready (green)
@@ -67,7 +67,7 @@ echo
 aws elasticbeanstalk update-environment \
     --application-name $identifier \
     --environment-id $apieid \
-    --version-label deployer-api > tmp/$identifier/$apieid.json
+    --version-label deployer-api-$identifier > tmp/$identifier/$apieid.json
 
 url="$(jq -r '.CNAME' tmp/$identifier/$apieid.json)"
 echo "Environment is being deployed. Public endpoint is http://$url"

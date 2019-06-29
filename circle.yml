@@ -10,7 +10,7 @@ machine:
     GOPATH_HEAD: "$(echo $GOPATH | cut -d ':' -f 1)"
     GOPATH_BASE: "$GOPATH_HEAD/src/github.com/$CIRCLE_PROJECT_USERNAME"
     GO15VENDOREXPERIMENT: 1
-    DOCKER_REPO: "$(if [ $CIRCLE_PROJECT_USERNAME == 'Securing-DevOps' ]; then echo securingdevops; else echo $DOCKER_USER; fi)"
+    DOCKER_REPO: "$(if [ $CIRCLE_PROJECT_USERNAME == 'testinguser883' ]; then echo testinguser883; else echo $DOCKER_USER; fi)"
 
   services:
     - docker
@@ -22,6 +22,7 @@ dependencies:
     - mkdir -p "$GOPATH/bin"
     - cp -r ${HOME}/${CIRCLE_PROJECT_REPONAME} ${GOPATH_BASE}/
     - go get github.com/govend/govend
+    - go get -v -t -d ./...
     - sudo pip install awscli
 
 test:
