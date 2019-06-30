@@ -73,7 +73,7 @@ jobs:
       - run: sudo apt-get -y -qq install python3
       - run: curl -O https://bootstrap.pypa.io/get-pip.py
       - run: python3 get-pip.py --user
-      - run: pip install awscli --upgrade --user
+      - run: pip3 install awscli --upgrade --user
       - run: env
 
       # specify any bash command here prefixed with `run: `
