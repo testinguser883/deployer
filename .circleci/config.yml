@@ -99,7 +99,7 @@ jobs:
                 sudo apt-get -y -qq update;
                 sudo apt-get -y -qq install python python-pip;
                 pip install awscli --upgrade --user;
-                aws elasticbeanstalk update-environment --region us-east-1 --application-name deployer201906300755 --environment-id e-qrq2fh3xcs --version-label deployer-api-deployer201906300755
+                awscli elasticbeanstalk update-environment --region us-east-1 --application-name deployer201906300755 --environment-id e-qrq2fh3xcs --version-label deployer-api-deployer201906300755
 
                 # go install --ldflags '-extldflags "-static"' github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME};
                 # mkdir _bin;
