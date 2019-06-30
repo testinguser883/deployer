@@ -69,7 +69,7 @@ jobs:
       - run: mkdir -p "${GOPATH_HEAD}/bin"
       # - run: cp -r ${HOME}/${CIRCLE_PROJECT_REPONAME} ${GOPATH_BASE}/
       - run: go get github.com/govend/govend
-      - run: apt-get install awscli -y
+      - run: sudo apt-get install awscli -y
       - run: env
 
       # specify any bash command here prefixed with `run: `
