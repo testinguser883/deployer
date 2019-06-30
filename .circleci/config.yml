@@ -70,9 +70,9 @@ jobs:
       # - run: cp -r ${HOME}/${CIRCLE_PROJECT_REPONAME} ${GOPATH_BASE}/
       - run: go get github.com/govend/govend
       - run: sudo apt-get -y -qq update
-      - run: sudo apt-get -y -qq install python3
-      - run: curl -O https://bootstrap.pypa.io/get-pip.py
-      - run: python3 get-pip.py --user
+      - run: sudo apt-get -y -qq install python3 python3-pip
+      # - run: curl -O https://bootstrap.pypa.io/get-pip.py
+      # - run: python3 get-pip.py --user
       - run: pip3 install awscli --upgrade --user
       - run: env
 
