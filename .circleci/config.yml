@@ -50,8 +50,9 @@ version: 2
 jobs:
   build:
     docker:
+      working_directory: /go/src/github.com/testinguser883/deployer
       # specify the version
-      - image: circleci/golang:1.9
+      - image: circleci/golang:1.10.1
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -62,7 +63,7 @@ jobs:
     #### expecting it in the form of
     ####   /go/src/github.com/circleci/go-tool
     ####   /go/src/bitbucket.org/circleci/go-tool
-    working_directory: /go/src/github.com/testinguser883/deployer
+
     environment:
       GO15VENDOREXPERIMENT: 1
     branches:
@@ -75,7 +76,7 @@ jobs:
       - run: echo 'export GOPATH_HEAD="$(echo ${GOPATH}|cut -d ':' -f 1)"' >> $BASH_ENV
       - run: echo 'export GOPATH_BASE="${GOPATH_HEAD}/src/github.com/${CIRCLE_PROJECT_USERNAME}"' >> $BASH_ENV
       - run: echo 'export DOCKER_REPO="$(if [ ${CIRCLE_PROJECT_USERNAME} == 'testinguser883' ]; then echo testinguser883; else echo $DOCKER_USER; fi)"' >> $BASH_ENV
-      - run: rm -rf ${GOPATH_BASE}/
+      # - run: rm -rf ${GOPATH_BASE}/
       - run: mkdir -p "${GOPATH_BASE}"
       - run: mkdir -p "${GOPATH_HEAD}/bin"
       # - run: cp -r ${HOME}/${CIRCLE_PROJECT_REPONAME} ${GOPATH_BASE}/
@@ -85,7 +86,7 @@ jobs:
 
       # specify any bash command here prefixed with `run: `
       - run: go get -v -t -d ./...
-      - run: go test -v ./...
+      # - run: go test -v ./...
 
       - run:
           name: Test module
