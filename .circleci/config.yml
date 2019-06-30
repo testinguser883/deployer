@@ -63,6 +63,11 @@ jobs:
     ####   /go/src/github.com/circleci/go-tool
     ####   /go/src/bitbucket.org/circleci/go-tool
     working_directory: /go/src/github.com/testinguser883/deployer
+    environment:
+      GO15VENDOREXPERIMENT: 1
+    branches:
+      only:
+        - master
     steps:
       - checkout
       - setup_remote_docker
