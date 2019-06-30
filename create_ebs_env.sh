@@ -45,7 +45,7 @@ apieid=$(jq -r '.EnvironmentId' tmp/$identifier/ebcreateapienv.json)
 echo "API environment $apieid is being created"
 
 # Upload the application version
-aws s3 mb s3://$identifier --region us-east-1
+aws s3 mb s3://$identifier
 aws s3 cp app-version-deployer.json s3://$identifier/
 aws elasticbeanstalk create-application-version \
     --application-name "$identifier" \
