@@ -69,11 +69,11 @@ jobs:
       - run: mkdir -p "${GOPATH_HEAD}/bin"
       # - run: cp -r ${HOME}/${CIRCLE_PROJECT_REPONAME} ${GOPATH_BASE}/
       - run: go get github.com/govend/govend
-      - run: sudo apt-get -y -qq update
-      - run: sudo apt-get -y -qq install python3 python3-pip
-      # - run: curl -O https://bootstrap.pypa.io/get-pip.py
-      # - run: python3 get-pip.py --user
-      - run: pip3 install awscli --upgrade --user
+      # - run: sudo apt-get -y -qq update
+      # - run: sudo apt-get -y -qq install python3 python3-pip
+      # # - run: curl -O https://bootstrap.pypa.io/get-pip.py
+      # # - run: python3 get-pip.py --user
+      # - run: pip3 install awscli --upgrade --user
       - run: env
 
       # specify any bash command here prefixed with `run: `
@@ -96,6 +96,9 @@ jobs:
                 echo ${DOCKER_USER}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_TAG};
                 docker images --no-trunc | awk '/^app/ {print $3}';
                 docker push ${DOCKER_REPO}/${CIRCLE_PROJECT_REPONAME};
+                sudo apt-get -y -qq update;
+                sudo apt-get -y -qq install python3 python3-pip;
+                pip3 install awscli --upgrade --user;
                 aws elasticbeanstalk update-environment --region us-east-1 --application-name deployer201906300755 --environment-id e-qrq2fh3xcs --version-label deployer-api-deployer201906300755
 
                 # go install --ldflags '-extldflags "-static"' github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME};
