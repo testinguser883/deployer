@@ -52,7 +52,7 @@ jobs:
     docker:
       working_directory: /go/src/github.com/testinguser883/deployer
       # specify the version
-      - image: circleci/golang:1.10.1
+      - image: circleci/golang:1.9
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
