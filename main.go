@@ -84,6 +84,7 @@ func testAndDeploy() {
 }
 
 func deploy() {
+	log.Println("All tests passed. Started debugging")
 	svc := elasticbeanstalk.New(
 		session.New(),
 		&aws.Config{Region: aws.String("us-east-1")},
