@@ -3,7 +3,7 @@ go get -u github.com/jvehent/pineapple
 $GOPATH/bin/pineapple <<EOF
 aws:
     region: us-east-1
-    accountnumber: 927034868273
+    accountnumber: 482057837105
 
 components:
     - name: load-balancer
@@ -51,3 +51,5 @@ rules:
 #      dst: database
 #      dport: 5432
 EOF
+
+$GOPATH/bin/pineapple -c /app/invoicer_sg_tests.yaml
